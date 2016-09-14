@@ -19,7 +19,6 @@ var NAVTREE =
     [ "Template Files", "templates_pg.html", "templates_pg" ],
     [ "MISRA-C:2004 Compliance Exceptions", "coreMISRA_Exceptions_pg.html", null ],
     [ "Register Mapping", "regMap_pg.html", null ],
-    [ "Todo List", "todo.html", null ],
     [ "Reference", "modules.html", "modules" ],
     [ "Data Structures", "annotated.html", "annotated" ],
     [ "Data Fields", "functions.html", [
