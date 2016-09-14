@@ -1,4 +1,4 @@
-var group__svd___format__gr =
+var group__svd__Format__gr =
 [
     [ "Device Level", "group__svd__xml__device__gr.html", null ],
     [ "Peripherals Level", "group__svd__xml__peripherals__gr.html", null ],
