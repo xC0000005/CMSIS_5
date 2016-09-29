@@ -125,7 +125,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li><a class="el" href="using_pg.html">Using CMSIS in Embedded Applications</a> describes the project setup and shows a simple program example.</li>
 <li><a class="el" href="using_TrustZone_pg.html">Using TrustZone&reg; for ARMv8-M</a> describes how to use the security extensions available in the ARMv8-M architecture.</li>
 <li><a class="el" href="templates_pg.html">Template Files</a> describes the files of the CMSIS-CORE in detail and explains how to adapt template files provided by ARM to silicon vendor devices.</li>
-<li><a class="el" href="coreMISRA_Exceptions_pg.html">MISRA-C:2004 Compliance Exceptions</a> describes the violations to the MISRA standard.</li>
+<li><a class="el" href="coreMISRA_Exceptions_pg.html">MISRA-C Deviations</a> describes the violations to the MISRA standard.</li>
 <li><a href="Modules.html"><b>Reference</b> </a> describe the features and functions of the <a class="el" href="device_h_pg.html">Device Header File &lt;device.h&gt;</a> in detail.</li>
 <li><a href="Annotated.html"><b>Data</b> <b>Structures</b> </a> describe the data structures of the <a class="el" href="device_h_pg.html">Device Header File &lt;device.h&gt;</a> in detail.</li>
 </ul>
@@ -146,8 +146,8 @@ $(document).ready(function(){initNavTree('index.html','');});
 </table>
 <hr/>
 <h1><a class="anchor" id="ref_v6-v8M"></a>
-Cortex-M and ARMv8-M</h1>
-<p>CMSIS supports the complete range of <a href="http://www.arm.com/products/processors/cortex-m/index.php" target="_blank"><b>Cortex-M processors</b></a> (with exception of Cortex-M1) and the <a href="http://www.arm.com/products/processors/instruction-set-architectures/armv8-m-architecture.php" target="_blank"><b>ARMv8-M architecture</b></a> including security extensions. ARMv8-M introduces two profiles <b>Baseline</b> (for power and area constrained applications) and <b>Mainline</b> (full-featured with optional SIMD, floating-point, and co-processor extensions). Both ARMv8-M profiles are supported by CMSIS.</p>
+Processor Support</h1>
+<p>CMSIS supports the complete range of <a href="http://www.arm.com/products/processors/cortex-m/index.php" target="_blank"><b>Cortex-M processors</b></a> (with exception of Cortex-M1) and the <a href="http://www.arm.com/products/processors/instruction-set-architectures/armv8-m-architecture.php" target="_blank"><b>ARMv8-M architecture</b></a> including security extensions.</p>
 <h2><a class="anchor" id="ref_man_sec"></a>
 Cortex-M Reference Manuals</h2>
 <p>The Cortex-M Reference Manuals are generic user guides for devices that implement the various ARM Cortex-M processors. These manuals contain the programmers model and detailed information about the core peripherals.</p>
@@ -158,17 +158,27 @@ Cortex-M Reference Manuals</h2>
 <li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0553a/DUI0553A_cortex_m4_dgug.pdf" target="_blank"><b>Cortex-M4 Devices Generic User Guide</b></a> (ARMv7-M architecture)</li>
 <li><a href="http://infocenter.arm.com/help/topic/com.arm.doc.dui0646a/DUI0646A_cortex_m7_dgug.pdf" target="_blank"><b>Cortex-M7 Devices Generic User Guide</b></a> (ARMv7-M architecture)</li>
 </ul>
+<h2><a class="anchor" id="ARMv8M"></a>
+ARMv8-M Architecture</h2>
+<p>ARMv8-M introduces two profiles <b>Baseline</b> (for power and area constrained applications) and <b>Mainline</b> (full-featured with optional SIMD, floating-point, and co-processor extensions). Both ARMv8-M profiles are supported by CMSIS.</p>
+<p>The ARMv8-M Architecture is described in the <a href="http://developer.arm.com/products/architecture/m-profile/docs/ddi0553/latest/armv8-m-architecture-reference-manual" target="_blank"><b>ARMv8-M Architecture Reference Manual</b></a>.</p>
 <hr/>
 <h1><a class="anchor" id="tested_tools_sec"></a>
 Tested and Verified Toolchains</h1>
 <p>The CMSIS-CORE <a class="el" href="templates_pg.html">Template Files</a> supplied by ARM have been tested and verified with the following toolchains: </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000001">Todo:</a></b></dt><dd>add version information for ARMCC compilers, verify compiler versions<ul>
+<li>ARM: MDK-ARM Version 5.21a</li>
+<li>GNU: GNU Tools ARM Embedded 5.4 2016q2</li>
+<li>IAR: IAR Embedded Workbench Kickstart Edition V6.10</li>
+</ul>
+</dd></dl>
 <hr/>
  </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Sep 14 2016 13:47:55 for CMSIS-CORE by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:58:33 for CMSIS-CORE by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

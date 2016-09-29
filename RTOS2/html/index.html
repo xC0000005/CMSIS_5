@@ -111,7 +111,10 @@ $(document).ready(function(){initNavTree('index.html','');});
 <div class="title">CMSIS-RTOS Documentation</div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The <b>CMSIS-RTOS API v2</b> addresses the following new requirements:</p>
+<div class="textblock"><p>The CMSIS-RTOS manages the resources of the microcontroller system and implements the concept of parallel threads that run concurrently. There are many advantages of using an CMSIS-RTOS v2 compliant kernel as it provides an standardized interface. avoids the login</p>
+<p>Applications frequently require several concurrent activities. CMSIS-RTOS can manage multiple concurrent activities at the time when they are needed. Each activity gets a separate thread which executes a specific task and this simplifies the overall program structure. The CMSIS-RTOS system is scalable and additional threads can be added easily at a later time. Threads have a priority allowing faster execution of time-critical parts of an user application.</p>
+<p>The CMSIS-RTOS offers services needed in many real-time applications, for example, periodical activation of timer functions, memory management, and message exchange between threads with time limits.</p>
+<p>The <b>CMSIS-RTOS API v2</b> addresses the following new requirements:</p>
 <ul>
 <li>Dynamic object creation no longer requires static memory, static memory buffers are now optional.</li>
 <li>Support for ARMv8-M architecture that provides a Secure and Non-Secure state of code execution.</li>
@@ -125,7 +128,7 @@ $(document).ready(function(){initNavTree('index.html','');});
 <li>The C function main is not longer started as a thread (this was an optional feature in CMSIS-RTOS v1).</li>
 <li>Functions that return osEvent have been replaced.</li>
 </ul>
-<p>CMSIS-RTOS API v2 provides an translation layer for the <a href="../../RTOS/html/index.html" class="el">CMSIS-RTOS API v1</a> that simplifies migration.</p>
+<p>CMSIS-RTOS API v2 provides an translation layer for the <a href="../../RTOS/html/index.html" class="el">CMSIS-RTOS API v1</a>. It is possible to intermix CMSIS-RTOS API v2 and CMSIS-RTOS API v1 within the same application. You may migrate overtime to the new API as explained in <a class="el" href="os2Migration.html">Migration from API v1 to API v2</a>.</p>
 <p>CMSIS-RTOS API v2 is not POSIX compliant, but has provisions to enable a POSIX translation layer and a C++ interface. </p>
 <hr/>
 <h2>CMSIS-RTOS in ARM::CMSIS Pack </h2>
@@ -138,14 +141,14 @@ $(document).ready(function(){initNavTree('index.html','');});
 <tr>
 <td><b>CMSIS/Documentation/RTOS</b> </td><td>CMSIS-RTOS API v1 documentation </td></tr>
 <tr>
-<td><b>CMSIS/RTOS2/Template</b> </td><td><a class="el" href="cmsis_os2_h.html">Header File Template: cmsis_os2.h</a> </td></tr>
+<td><b>CMSIS/RTOS2/Template</b> </td><td><a class="el" href="cmsis_os2_h.html">Header File: cmsis_os2.h</a> </td></tr>
 </table>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 13 2016 16:45:47 for CMSIS-RTOS by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:59:48 for CMSIS-RTOS by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

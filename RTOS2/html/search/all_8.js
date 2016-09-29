@@ -7,5 +7,5 @@ var searchData=
   ['mp_5fsize',['mp_size',['../group__CMSIS__RTOS__PoolMgmt.html#a2e5d8aa8630f560597dd5e85c86f8a73',1,'osMemoryPoolAttr_t']]],
   ['mq_5fmem',['mq_mem',['../group__CMSIS__RTOS__Message.html#aa4b46f91d1f929b4d3017275d2a592aa',1,'osMessageQueueAttr_t']]],
   ['mq_5fsize',['mq_size',['../group__CMSIS__RTOS__Message.html#a07e8199f8d810c55d154c1a3afe2991e',1,'osMessageQueueAttr_t']]],
-  ['migration_20from_20rtosv1_20to_20rtosv2',['Migration from RTOSv1 to RTOSv2',['../os2Migration.html',1,'']]]
+  ['migration_20from_20api_20v1_20to_20api_20v2',['Migration from API v1 to API v2',['../os2Migration.html',1,'']]]
 ];

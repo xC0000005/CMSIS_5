@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Migration from RTOSv1 to RTOSv2</title>
-<title>CMSIS-RTOS: Migration from RTOSv1 to RTOSv2</title>
+<title>Migration from API v1 to API v2</title>
+<title>CMSIS-RTOS: Migration from API v1 to API v2</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="cmsis.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
@@ -108,21 +108,23 @@ $(document).ready(function(){initNavTree('os2Migration.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Migration from RTOSv1 to RTOSv2 </div>  </div>
+<div class="title">Migration from API v1 to API v2 </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This section lists all new API functions along with the differences to the RTOS v1 functionality.</p>
-<p>The list is sorted alphabetically by RTOSv2 function names and is structured the following way: </p>
-<hr/>
-<p> <span class="XML-Token">for RTOS v2</span> : <code>RTOS version 2 function</code> <br/>
- <span class="XML-Token">for RTOS v1</span> : <code>RTOS version 1 function</code> <br/>
-</p>
-<p>Brief description of new function. <br/>
-Description of the difference.</p>
-<hr/>
-<div class="new"> New functions have a green background. </div> <hr/>
-<div class="mod"> Modifying or replacing functions have an amber background. </div> <hr/>
-<div class="del"> Deprecated functions without replacement have a red background. </div><h1><a class="anchor" id="mig_kernel"></a>
+<div class="textblock"><p>This section lists the CMSIS-RTOS API v1 and API v2 functions along with the differences in functionality. The list is sorted alphabetically by API v2 function names and is structured the following way:</p>
+<ul>
+<li>RTOS API v2 function prototype</li>
+<li>RTOS API v1 function prototype that is equivalent or provides similar functionality</li>
+<li>Brief description of the RTOS v2 function.</li>
+<li>Description of the difference.</li>
+</ul>
+<p>The background color indicates:</p>
+<ul>
+<li><div class="new">Green: New functions in API v2 that are not available in API v1 </div></li>
+<li><div class="mod">Amber: Functions that are modified or replaced in API v2 compared to API v1 </div></li>
+<li><div class="del">Red: Functions in API v1 that are deprecated in API v2 </div></li>
+</ul>
+<h1><a class="anchor" id="mig_kernel"></a>
 Kernel Information and Control</h1>
 <hr/>
 <div class="new"> <code>osStatus_t <a class="el" href="group__CMSIS__RTOS__KernelCtrl.html#ga6f7764e7250c5c5364c00c45a5d1d199" title="Get RTOS Kernel Information. ">osKernelGetInfo</a> (osVersion_t* version, char* id_buf, uint32_t id_size)</code> <br/>
@@ -677,7 +679,7 @@ Deprecated. </div> </div></div><!-- contents -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 13 2016 16:45:47 for CMSIS-RTOS by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:59:48 for CMSIS-RTOS by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

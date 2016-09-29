@@ -114,7 +114,7 @@ $(document).ready(function(){initNavTree('group__peripheral__gr.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>Describes naming conventions, requirements, and optional features for accessing peripherals.  
+<p>Naming conventions and optional features for accessing peripherals.  
 <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
@@ -128,14 +128,18 @@ Macros</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Description</h2>
 <p>The section below describes the naming conventions, requirements, and optional features for accessing device specific peripherals. Most of the rules also apply to the core peripherals. The <a class="el" href="device_h_pg.html">Device Header File &lt;device.h&gt;</a> contains typically these definition and also includes the core specific header files.</p>
-<p>Most of the definitions can be generated using the <a href="../../SVD/html/index.html"><b>CMSIS-SVD</b></a> System View Description for Peripherals. Refer to <a href="../../SVD/html/svd_SVDConv_pg.html"><b>SVDConv.exe</b></a> for more information.</p>
+<p>The definitions for <a class="el" href="group__peripheral__gr.html">Peripheral Access</a> can be generated using the <a href="../../SVD/html/index.html"><b>CMSIS-SVD</b></a> System View Description for Peripherals. Refer to <a href="../../SVD/html/svd_SVDConv_pg.html"><b>SVDConv.exe</b></a> for more information.</p>
 <p>Each peripheral provides a data type definition with a name that is composed of:</p>
 <ul>
-<li>prefix <b>&lt;<em>device abbreviation&gt;</em>_</b></li>
+<li>an optional prefix <b>&lt;<em>device abbreviation&gt;</em>_</b></li>
 <li><b>&lt;<em>peripheral name</em>&gt;</b></li>
 <li>postfix <b>_Type</b> or <b>_TypeDef</b> to identify a type definition.</li>
 </ul>
-<p>Example: <b>LPC_UART_TypeDef</b> for the device <b>LPC</b> and the peripheral <b>UART</b>.</p>
+<p>Examples:</p>
+<ul>
+<li><b>UART_TypeDef</b> for the peripheral <b>UART</b>.</li>
+<li><b>LPC_UART_TypeDef</b> for the device family <b>LPC</b> and the peripheral <b>UART</b>.</li>
+</ul>
 <p>The data type definition uses standard C data types defined by the ANSI C header file &lt;stdint.h&gt;.</p>
 <ul>
 <li>IO Type Qualifiers are used to specify the access to peripheral variables. <table class="doxtable">
@@ -193,7 +197,11 @@ The typedef <b>&lt;<em>device abbreviation</em>&gt;_UART_TypeDef</b> shown below
 </p>
 <div class="fragment"><div class="line"><span class="preprocessor">#define LPC_UART2             ((LPC_UART_TypeDef      *) LPC_UART2_BASE    )</span></div>
 <div class="line"><span class="preprocessor">#define LPC_UART3             ((LPC_UART_TypeDef      *) LPC_UART3_BASE    )</span></div>
-</div><!-- fragment --><p>The registers in the various UARTs can now be referred in the user code as shown below:<br/>
+</div><!-- fragment --><dl class="section note"><dt>Note</dt><dd><ul>
+<li>The prefix <b>LPC</b> is optional.</li>
+</ul>
+</dd></dl>
+<p>The registers in the various UARTs can now be referred in the user code as shown below:<br/>
 </p>
 <div class="fragment"><div class="line">val = LPC_UART2-&gt;DR   <span class="comment">// is the data register of UART1.</span></div>
 </div><!-- fragment --><hr/>
@@ -332,7 +340,7 @@ Register Bit Fields</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Sep 14 2016 13:47:55 for CMSIS-CORE by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:58:32 for CMSIS-CORE by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

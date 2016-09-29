@@ -385,8 +385,7 @@ memory for control block <p>Pointer to a memory location for the thread object. 
 <td class="fieldname">
 cb_size</td>
 <td class="fielddoc">
-size of provided memory for control block <p>The size of the memory block passed with <a class="el" href="group__CMSIS__RTOS__ThreadMgmt.html#a1e100dc33d403841ed3c344e3397868e">cb_mem</a>. Must be the size of a thread object or larger. </p>
-</td></tr>
+size of provided memory for control block </td></tr>
 <tr><td class="fieldtype">
 <a class="anchor" id="ad7c9b42355a4c8b9467130ab3fb19e43"></a>void *</td>
 <td class="fieldname">
@@ -409,9 +408,15 @@ priority</td>
 initial thread priority (default: osPriorityNormal) <p>Specifies the initial thread priority with a value from <a class="el" href="group__CMSIS__RTOS__ThreadMgmt.html#gad4e3e0971b41f2d17584a8c6837342ec" title="Priority values. ">osPriority_t</a>. </p>
 </td></tr>
 <tr><td class="fieldtype">
-<a class="anchor" id="a7adcf348fb1a21f84d59516e25ff43f3"></a>uint32_t</td>
+<a class="anchor" id="afb9a59bed8a2e42465fad6a4b750ff73"></a><a class="el" href="cmsis__os2_8h.html#ad5ef21485fe5f60263bc0b48006202cb">TZ_ModuleId_t</a></td>
 <td class="fieldname">
-reserved[2]</td>
+tz_module</td>
+<td class="fielddoc">
+TrustZone module identifier. </td></tr>
+<tr><td class="fieldtype">
+<a class="anchor" id="a66f538babc389986738ec70104e0562b"></a>uint32_t</td>
+<td class="fieldname">
+reserved</td>
 <td class="fielddoc">
 reserved (must be 0) <p>Reserved for future use. Must be <span class="XML-Token">0</span>. </p>
 </td></tr>
@@ -1165,7 +1170,7 @@ Cannot be called from <a class="el" href="functionOverview.html#CMSIS_RTOS_ISR_C
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 13 2016 16:45:47 for CMSIS-RTOS by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:59:48 for CMSIS-RTOS by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

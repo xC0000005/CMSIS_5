@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['misra_2dc_3a2004_20compliance_20exceptions',['MISRA-C:2004 Compliance Exceptions',['../coreMISRA_Exceptions_pg.html',1,'']]],
+  ['misra_2dc_20deviations',['MISRA-C Deviations',['../coreMISRA_Exceptions_pg.html',1,'']]],
   ['mask0',['MASK0',['../structDWT__Type.html#a821eb5e71f340ec077efc064cfc567db',1,'DWT_Type']]],
   ['mask1',['MASK1',['../structDWT__Type.html#aabf94936c9340e62fed836dcfb152405',1,'DWT_Type']]],
   ['mask2',['MASK2',['../structDWT__Type.html#a00ac4d830dfe0070a656cda9baed170f',1,'DWT_Type']]],

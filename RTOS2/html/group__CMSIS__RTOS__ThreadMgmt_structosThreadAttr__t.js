@@ -7,5 +7,6 @@ var group__CMSIS__RTOS__ThreadMgmt_structosThreadAttr__t =
     [ "stack_mem", "group__CMSIS__RTOS__ThreadMgmt.html#ad7c9b42355a4c8b9467130ab3fb19e43", null ],
     [ "stack_size", "group__CMSIS__RTOS__ThreadMgmt.html#ad63716408aae5b50857ca8ce74e3a3ff", null ],
     [ "priority", "group__CMSIS__RTOS__ThreadMgmt.html#a6a5183df4c54c3e28dc8dc704f2487d5", null ],
-    [ "reserved", "group__CMSIS__RTOS__ThreadMgmt.html#a7adcf348fb1a21f84d59516e25ff43f3", null ]
+    [ "tz_module", "group__CMSIS__RTOS__ThreadMgmt.html#afb9a59bed8a2e42465fad6a4b750ff73", null ],
+    [ "reserved", "group__CMSIS__RTOS__ThreadMgmt.html#a66f538babc389986738ec70104e0562b", null ]
 ];

@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Header File Template: cmsis_os2.h</title>
-<title>CMSIS-RTOS: Header File Template: cmsis_os2.h</title>
+<title>Header File: cmsis_os2.h</title>
+<title>CMSIS-RTOS: Header File: cmsis_os2.h</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="cmsis.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
@@ -108,35 +108,12 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Header File Template: <a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a> </div>  </div>
+<div class="title">Header File: <a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a> </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>The file <b><a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a></b> is a template header file for a CMSIS-RTOS compliant Real-Time Operating System (RTOS). Each RTOS that is compliant with CMSIS-RTOS shall provide a specific <b><a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a></b> header file that represents its implementation.</p>
-<p>The file <a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a> contains:</p>
-<ul>
-<li>CMSIS-RTOS API function definitions</li>
-<li>struct definitions for parameters and return types</li>
-<li>status and priority values used by CMSIS-RTOS API functions</li>
-<li>macros for defining threads and other kernel objects</li>
-</ul>
-<p><b>Name conventions and header file modifications</b></p>
-<p>All definitions are prefixed with <b>os</b> to give an unique name space for CMSIS-RTOS functions. Definitions that are prefixed <b>os_</b> are not used in the application code but local to this header file. All definitions and functions that belong to a module are grouped and have a common prefix, i.e. <b>osThread</b>.</p>
-<p>Definitions that are marked with <b>CAN BE CHANGED</b> can be adapted towards the needs of the actual CMSIS-RTOS implementation. These definitions can be specific to the underlying RTOS kernel.</p>
-<p>Definitions that are marked with <b>MUST REMAIN UNCHANGED</b> cannot be altered. Otherwise the CMSIS-RTOS implementation is no longer compliant to the standard. Note that some functions are optional and need not to be provided by every CMSIS-RTOS implementation.</p>
-<p><b>Define and reference object definitions</b></p>
-<p>With <b>#define osObjectsExternal</b> objects are defined as external symbols. This allows to create a consistent header file that is used throughout a project as shown below:</p>
-<p><em>Header File</em> </p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="cmsis__os2_8h.html">cmsis_os2.h</a>&gt;</span>                                         <span class="comment">// CMSIS RTOS header file</span></div>
-<div class="line"></div>
-<div class="line"><span class="comment">// Thread definition</span></div>
-<div class="line"> </div>
-<div class="line"><span class="comment">// Pool definition</span></div>
-</div><!-- fragment --><p>This header file defines all objects when included in a C/C++ source file. When <b>#define osObjectsExternal</b> is present before the header file, the objects are defined as external symbols. A single consistent header file can therefore be used throughout the whole project.</p>
-<p><em>Example</em> </p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;osObjects.h&quot;</span>     <span class="comment">// Definition of the CMSIS-RTOS objects</span></div>
-</div><!-- fragment --><div class="fragment"><div class="line"><span class="preprocessor">#define osObjectsExternal  // Objects will be defined as external symbols</span></div>
-<div class="line"><span class="preprocessor">#include &quot;osObjects.h&quot;     // Reference to the CMSIS-RTOS objects</span></div>
-</div><!-- fragment --><p><b>Header file cmsis_os2.h</b></p>
+<div class="textblock"><p>The file <b><a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a></b> is a standard header file that interfaces to every CMSIS-RTOS API v2 compliant Real-Time Operating Systems (RTOS). Each implementation is provided the same <a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a> which defines the interface to the <a class="el" href="rtos_api2.html">CMSIS-RTOS C API v2</a>.</p>
+<p>Using the <b><a class="el" href="cmsis__os2_8h.html">cmsis_os2.h</a></b> along with dynamic object allocation allows to create source code or libraries that require no modifications when using on a different CMSIS-RTOS v2 implementation.</p>
+<p><b>Header file cmsis_os2.h</b></p>
 <div class="fragment"><div class="line"><span class="comment">/*</span></div>
 <div class="line"><span class="comment"> * Copyright (c) 2013-2016 ARM Limited. All rights reserved.</span></div>
 <div class="line"><span class="comment"> *</span></div>
@@ -156,7 +133,7 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="comment"> *</span></div>
 <div class="line"><span class="comment"> * ----------------------------------------------------------------------</span></div>
 <div class="line"><span class="comment"> *</span></div>
-<div class="line"><span class="comment"> * $Date:        30. June 2016</span></div>
+<div class="line"><span class="comment"> * $Date:        20. September 2016</span></div>
 <div class="line"><span class="comment"> * $Revision:    V2.0</span></div>
 <div class="line"><span class="comment"> *</span></div>
 <div class="line"><span class="comment"> * Project:      CMSIS-RTOS2 API</span></div>
@@ -169,7 +146,8 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="preprocessor">#ifndef __CMSIS_OS2_H</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define __CMSIS_OS2_H</span></div>
 <div class="line"><span class="preprocessor"></span> </div>
-<div class="line"><span class="preprocessor">#if   defined(__CC_ARM)</span></div>
+<div class="line"><span class="preprocessor">#ifndef __NO_RETURN</span></div>
+<div class="line"><span class="preprocessor"></span><span class="preprocessor">#if   defined(__CC_ARM)</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define __NO_RETURN __declspec(noreturn)</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#elif defined(__ARMCC_VERSION) &amp;&amp; (__ARMCC_VERSION &gt;= 6010050)</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define __NO_RETURN __attribute__((noreturn))</span></div>
@@ -180,7 +158,8 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#else</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#define __NO_RETURN</span></div>
 <div class="line"><span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
-<div class="line"><span class="preprocessor"></span></div>
+<div class="line"><span class="preprocessor"></span><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="preprocessor"></span> </div>
 <div class="line"><span class="preprocessor">#include &lt;stdint.h&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;stddef.h&gt;</span></div>
 <div class="line"> </div>
@@ -191,9 +170,9 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="preprocessor"></span> </div>
 <div class="line"> </div>
 <div class="line"><span class="comment">//  ==== Enumerations, structures, defines ====</span></div>
-<div class="line"><span class="comment"></span></div>
+<div class="line"> <span class="comment"></span></div>
 <div class="line"><span class="comment">/// Version information.</span></div>
-<div class="line"><span class="comment"></span><span class="keyword">typedef</span> <span class="keyword">struct </span>osVersion_s {</div>
+<div class="line"><span class="comment"></span><span class="keyword">typedef</span> <span class="keyword">struct </span>{</div>
 <div class="line">  uint32_t                       api;   <span class="comment">///&lt; API version (major.minor.rev: mmnnnrrrr dec).</span></div>
 <div class="line"><span class="comment"></span>  uint32_t                    kernel;   <span class="comment">///&lt; Kernel version (major.minor.rev: mmnnnrrrr dec).</span></div>
 <div class="line"><span class="comment"></span>} <a class="code" href="group__CMSIS__RTOS__KernelCtrl.html#structosVersion__t">osVersion_t</a>;</div>
@@ -277,7 +256,7 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="comment"></span>  <a class="code" href="cmsis__os2_8h.html#gad4e3e0971b41f2d17584a8c6837342ecae35f5e2f9c64ad346822521b643bdea4">osPriorityError</a>         = -1,         <span class="comment">///&lt; System cannot determine priority or illegal priority.</span></div>
 <div class="line"><span class="comment"></span>  <a class="code" href="cmsis__os2_8h.html#gad4e3e0971b41f2d17584a8c6837342ecac86c171f8d466cced0cb1b03bb03343b">osPriorityReserved</a>      = 0x7FFFFFFF  <span class="comment">///&lt; Prevents enum down-size compiler optimization.</span></div>
 <div class="line"><span class="comment"></span>} <a class="code" href="group__CMSIS__RTOS__ThreadMgmt.html#gad4e3e0971b41f2d17584a8c6837342ec">osPriority_t</a>;</div>
-<div class="line"><span class="comment"></span></div>
+<div class="line"> <span class="comment"></span></div>
 <div class="line"><span class="comment">/// Entry point of a thread.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">typedef</span> <span class="keywordtype">void</span> *(*os_thread_func_t) (<span class="keywordtype">void</span> *argument);</div>
 <div class="line"> <span class="comment"></span></div>
@@ -341,6 +320,13 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="comment">/// \details Message Queue ID identifies the message queue.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">typedef</span> uint32_t <a class="code" href="cmsis__os2_8h.html#a0aa5a6c69895f1871aef67123c5177b1">osMessageQueueId_t</a>;</div>
 <div class="line"> </div>
+<div class="line"> </div>
+<div class="line"><span class="preprocessor">#ifndef TZ_MODULEID_T</span></div>
+<div class="line"><span class="preprocessor"></span><span class="preprocessor">#define TZ_MODULEID_T</span></div>
+<div class="line"><span class="preprocessor"></span><span class="comment">/// \details Data type that identifies secure software modules called by a process.</span></div>
+<div class="line"><span class="comment"></span><span class="keyword">typedef</span> uint32_t <a class="code" href="cmsis__os2_8h.html#ad5ef21485fe5f60263bc0b48006202cb">TZ_ModuleId_t</a>;</div>
+<div class="line"><span class="preprocessor">#endif</span></div>
+<div class="line"><span class="preprocessor"></span> </div>
 <div class="line"> <span class="comment"></span></div>
 <div class="line"><span class="comment">/// Attributes structure for thread.</span></div>
 <div class="line"><span class="comment"></span><span class="keyword">typedef</span> <span class="keyword">struct </span>osThreadAttr_s {</div>
@@ -351,7 +337,8 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="comment"></span>  <span class="keywordtype">void</span>                   *stack_mem;    <span class="comment">///&lt; memory for stack</span></div>
 <div class="line"><span class="comment"></span>  uint32_t                stack_size;   <span class="comment">///&lt; size of stack</span></div>
 <div class="line"><span class="comment"></span>  <a class="code" href="group__CMSIS__RTOS__ThreadMgmt.html#gad4e3e0971b41f2d17584a8c6837342ec">osPriority_t</a>              priority;   <span class="comment">///&lt; initial thread priority (default: osPriorityNormal)</span></div>
-<div class="line"><span class="comment"></span>  uint32_t               reserved[2];   <span class="comment">///&lt; reserved (must be 0)</span></div>
+<div class="line"><span class="comment"></span>  TZ_ModuleId_t            tz_module;   <span class="comment">///&lt; TrustZone module identifier</span></div>
+<div class="line"><span class="comment"></span>  uint32_t                  reserved;   <span class="comment">///&lt; reserved (must be 0)</span></div>
 <div class="line"><span class="comment"></span>} <a class="code" href="group__CMSIS__RTOS__ThreadMgmt.html#structosThreadAttr__t">osThreadAttr_t</a>;</div>
 <div class="line"> <span class="comment"></span></div>
 <div class="line"><span class="comment">/// Attributes structure for timer.</span></div>
@@ -416,7 +403,7 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <div class="line"><span class="comment">///  Get RTOS Kernel Information.</span></div>
 <div class="line"><span class="comment">/// \param[out]    version       pointer to buffer for retrieving version information.</span></div>
 <div class="line"><span class="comment">/// \param[out]    id_buf        pointer to buffer for retrieving kernel identification string.</span></div>
-<div class="line"><span class="comment">/// \param[in]     id_size       maximum size of buffer for kernel identification string.</span></div>
+<div class="line"><span class="comment">/// \param[in]     id_size       size of buffer for kernel identification string.</span></div>
 <div class="line"><span class="comment">/// \return status code that indicates the execution status of the function.</span></div>
 <div class="line"><span class="comment"></span><a class="code" href="group__CMSIS__RTOS__Status.html#ga6c0dbe6069e4e7f47bb4cd32ae2b813e">osStatus_t</a> <a class="code" href="group__CMSIS__RTOS__KernelCtrl.html#ga6f7764e7250c5c5364c00c45a5d1d199">osKernelGetInfo</a> (<a class="code" href="group__CMSIS__RTOS__KernelCtrl.html#structosVersion__t">osVersion_t</a> *version, <span class="keywordtype">char</span> *id_buf, uint32_t id_size);</div>
 <div class="line"> <span class="comment"></span></div>
@@ -809,7 +796,7 @@ $(document).ready(function(){initNavTree('cmsis_os2_h.html','');});
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Tue Sep 13 2016 16:45:47 for CMSIS-RTOS by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:59:48 for CMSIS-RTOS by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

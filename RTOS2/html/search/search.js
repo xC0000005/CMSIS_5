@@ -11,11 +11,11 @@ var indexSectionsWithContent =
   1: "o",
   2: "c",
   3: "o",
-  4: "ackmnprs",
-  5: "o",
+  4: "ackmnprst",
+  5: "ot",
   6: "o",
   7: "o",
-  8: "_",
+  8: "_t",
   9: "cegkmst",
   10: "cfhmrt"
 };

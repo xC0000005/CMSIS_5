@@ -190,13 +190,14 @@ var NAVTREEINDEX0 =
 "group__CMSIS__RTOS__ThreadFlagsMgmt.html#gacc76945aa9e1f933de7761de1e1a847d":[6,1,3,2],
 "group__CMSIS__RTOS__ThreadMgmt.html":[6,1,1],
 "group__CMSIS__RTOS__ThreadMgmt.html#a1e100dc33d403841ed3c344e3397868e":[6,1,1,0,2],
+"group__CMSIS__RTOS__ThreadMgmt.html#a66f538babc389986738ec70104e0562b":[6,1,1,0,8],
 "group__CMSIS__RTOS__ThreadMgmt.html#a6a5183df4c54c3e28dc8dc704f2487d5":[6,1,1,0,6],
 "group__CMSIS__RTOS__ThreadMgmt.html#a6e93b49cb79c12f768d72580c7731f30":[6,1,1,0,1],
-"group__CMSIS__RTOS__ThreadMgmt.html#a7adcf348fb1a21f84d59516e25ff43f3":[6,1,1,0,7],
 "group__CMSIS__RTOS__ThreadMgmt.html#aa55a4335d12dc2785dc00fdc292d1159":[6,1,1,0,3],
 "group__CMSIS__RTOS__ThreadMgmt.html#ab74e6bf80237ddc4109968cedc58c151":[6,1,1,0,0],
 "group__CMSIS__RTOS__ThreadMgmt.html#ad63716408aae5b50857ca8ce74e3a3ff":[6,1,1,0,5],
 "group__CMSIS__RTOS__ThreadMgmt.html#ad7c9b42355a4c8b9467130ab3fb19e43":[6,1,1,0,4],
+"group__CMSIS__RTOS__ThreadMgmt.html#afb9a59bed8a2e42465fad6a4b750ff73":[6,1,1,0,7],
 "group__CMSIS__RTOS__ThreadMgmt.html#ga0aeaf349604f456e68e78f9d3b42e44b":[6,1,1,11],
 "group__CMSIS__RTOS__ThreadMgmt.html#ga249499c519f3f8eef5673009ab6cfcbe":[6,1,1,1],
 "group__CMSIS__RTOS__ThreadMgmt.html#ga2f8ba6dba6e9c065a6e236ffd410d74a":[6,1,1,19],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "os2Migration.html#mig_signalEvents":[5,4],
 "os2Migration.html#mig_threadFlags":[5,6],
 "os2Migration.html#mig_threadMgmt":[5,1],
-"os2Migration.html#mig_timer":[5,3],
-"os2Migration.html#mig_wait":[5,2]
+"os2Migration.html#mig_timer":[5,3]
 };

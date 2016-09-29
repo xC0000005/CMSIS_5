@@ -2,8 +2,9 @@ var NAVTREE =
 [
   [ "CMSIS-CORE", "index.html", [
     [ "Overview", "index.html", [
-      [ "Cortex-M and ARMv8-M", "index.html#ref_v6-v8M", [
-        [ "Cortex-M Reference Manuals", "index.html#ref_man_sec", null ]
+      [ "Processor Support", "index.html#ref_v6-v8M", [
+        [ "Cortex-M Reference Manuals", "index.html#ref_man_sec", null ],
+        [ "ARMv8-M Architecture", "index.html#ARMv8M", null ]
       ] ],
       [ "Tested and Verified Toolchains", "index.html#tested_tools_sec", null ]
     ] ],
@@ -14,11 +15,14 @@ var NAVTREE =
         [ "Program Example", "using_TrustZone_pg.html#Example_TrustZone", null ]
       ] ],
       [ "Programmers Model with TrustZone", "using_TrustZone_pg.html#Model_TrustZone", null ],
-      [ "CMSIS Files for TrustZone", "using_TrustZone_pg.html#CMSIS_Files_TrustZone", null ]
+      [ "CMSIS Files for TrustZone", "using_TrustZone_pg.html#CMSIS_Files_TrustZone", [
+        [ "RTOS Thread Context Management", "using_TrustZone_pg.html#RTOS_TrustZone", null ]
+      ] ]
     ] ],
     [ "Template Files", "templates_pg.html", "templates_pg" ],
-    [ "MISRA-C:2004 Compliance Exceptions", "coreMISRA_Exceptions_pg.html", null ],
+    [ "MISRA-C Deviations", "coreMISRA_Exceptions_pg.html", null ],
     [ "Register Mapping", "regMap_pg.html", null ],
+    [ "Todo List", "todo.html", null ],
     [ "Reference", "modules.html", "modules" ],
     [ "Data Structures", "annotated.html", "annotated" ],
     [ "Data Fields", "functions.html", [
@@ -31,7 +35,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"group__system__init__gr.html#gaa3cd3e43291e81e795d642b79b6088e6"
+"group__nvic__trustzone__functions.html#gaedea4c16dd4a0b792c7e9d1da4c49295"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

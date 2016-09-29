@@ -1,5 +1,6 @@
 var NAVTREEINDEX1 =
 {
+"os2Migration.html#mig_wait":[5,2],
 "pages.html":[],
 "rtosValidation.html":[4],
 "rtosValidation.html#test_output":[4,0],

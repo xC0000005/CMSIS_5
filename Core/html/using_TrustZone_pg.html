@@ -176,13 +176,24 @@ CMSIS Files for TrustZone</h1>
 <img src="CMSIS_TZ_files.png" alt="CMSIS_TZ_files.png"/>
 <div class="caption">
 CMSIS with extensions for TrustZone</div></div>
- <dl class="section note"><dt>Note</dt><dd>Refer to <a class="el" href="using_pg.html">Using CMSIS in Embedded Applications</a> for a general description of the CMSIS-CORE files. </dd></dl>
+ <dl class="section note"><dt>Note</dt><dd>Refer to <a class="el" href="using_pg.html">Using CMSIS in Embedded Applications</a> for a general description of the CMSIS-CORE files.</dd></dl>
+<h2><a class="anchor" id="RTOS_TrustZone"></a>
+RTOS Thread Context Management</h2>
+<p>To provide a consistent RTOS thread context management for ARMv8-M TrustZone across the various real-time operating systems (RTOS), the CMSIS-CORE includes header file <b>TZ_context.h</b> with API definitions. An <em>non-secure application</em> which uses an RTOS and calls <em>secure</em> library modules requires the management of the <em>secure</em> stack space. Since <em>secure state</em> registers cannot be accessed by the RTOS that runs in <em>non-secure state</em> secure functions implement the thread context switch.</p>
+<p>As the <em>non-secure state</em> and <em>secure state</em> parts of an application are separated, the API for managing the <em>secure</em> stack space should be standardized. Otherwise the <em>secure</em> library modules would force the <em>non-secure state</em> application to use a matching RTOS implementation.</p>
+<div class="image">
+<img src="TZ_context.png" alt="TZ_context.png"/>
+<div class="caption">
+RTOS Thread Context Management for ARMv8-M TrustZone</div></div>
+<p> To allocate the context memory for threads, an RTOS kernel that runs in <em>non-secure state</em> calls the interface functions defined by the header file <b>TZ_context.h</b>. The <b>TZ_context</b> functions itself are part of the <em>secure state</em> application. An minimum implementation is provided as part of RTOS2 and should handle the secure stack for the thread execution. However it is also possible to implement the context memory management system with additional features such as access control to <em>secure state</em> memory regions using an MPU.</p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>refer to RTOS2 once the file is provided</dd></dl>
+<p>The API functions of <b>TZ_context.png</b> are described in the chapter <a href="Modules.html"><b>Reference</b> </a> under <a class="el" href="group__trustzone__functions.html">TrustZone for ARMv8-M</a> - <a class="el" href="group__context__trustzone__functions.html">RTOS Context Management</a>. </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Wed Sep 14 2016 13:47:55 for CMSIS-CORE by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:58:32 for CMSIS-CORE by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

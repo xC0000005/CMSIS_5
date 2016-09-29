@@ -111,7 +111,7 @@ $(document).ready(function(){initNavTree('theory_op.html','');});
 <div class="title">Theory of Operation </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>This section describes how CMSIS-RTOS RTX manages the resources of the target system. Many aspects of the CMSIS-RTOS RTX kernel can be configured. Information about configuration options is mentioned where applicable.</p>
+<div class="textblock"><p>This section describes how RTX version 5 manages the resources of the target system. Many aspects of the kernel are configurable and the configuration options are is mentioned where applicable.</p>
 <h1><a class="anchor" id="KernelTimer"></a>
 RTX Kernel Timer Tick and Thread Management</h1>
 <p>By default, CMSIS-RTOS RTX5 uses the Cortex-M <a href="http://www.keil.com/support/man/docs/gsac/GSAC_SYSTICKtimer.htm" target="_blank">SysTick</a> timer to generate periodic interrupts for the RTX kernel timer tick. CMSIS-RTOS provides <a class="el" href="group__CMSIS__RTOS__TimerMgmt.html">Timer Management</a> functions and several CMSIS-RTOS functions have a timeout parameter. This periodic RTX kernel timer tick interrupt is used to derive the required time interval. CMSIS-RTOS RTX also provides configuration options for a alternative timer and tick-less operation.</p>
@@ -133,8 +133,8 @@ RTX Kernel Timer Tick and Thread Management</h1>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="rtx5_impl.html">RTX5 Implementation</a></li>
-    <li class="footer">Generated on Tue Sep 13 2016 16:45:47 for CMSIS-RTOS by ARM Ltd. All rights reserved.
+    <li class="navelem"><a class="el" href="rtx5_impl.html">RTX v5 Implementation</a></li>
+    <li class="footer">Generated on Thu Sep 29 2016 11:59:48 for CMSIS-RTOS by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

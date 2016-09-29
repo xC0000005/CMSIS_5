@@ -122,7 +122,7 @@ system_Device.c Template File</h1>
  * @brief    CMSIS Cortex-M# Device Peripheral Access Layer Source File for
  *           Device &lt;Device&gt;
  * @version  V5.00
- * @date     02. March 2016
+ * @date     28. September 2016
  ******************************************************************************/
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
@@ -162,7 +162,7 @@ system_Device.c Template File</h1>
 /* ToDo: initialize SystemCoreClock with the system core clock frequency value
          achieved after system intitialization.
          This means system core clock frequency after call to SystemInit() */
-uint32_t SystemCoreClock = __SYSTEM_CLOCK;  /* System Clock Frequency (Core Clock)*/
+uint32_t SystemCoreClock = SYSTEM_CLOCK;  /* System Clock Frequency (Core Clock)*/
 
 
 
@@ -253,7 +253,7 @@ extern void SystemCoreClockUpdate (void);
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="templates_pg.html">Template Files</a></li>
-    <li class="footer">Generated on Wed Sep 14 2016 13:47:55 for CMSIS-CORE by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Thu Sep 29 2016 11:58:32 for CMSIS-CORE by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 

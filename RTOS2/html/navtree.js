@@ -3,12 +3,12 @@ var NAVTREE =
   [ "CMSIS-RTOS", "index.html", [
     [ "Revision History", "rtos_revisionHistory.html", null ],
     [ "Function Overview", "functionOverview.html", "functionOverview" ],
-    [ "Header File Template: cmsis_os2.h", "cmsis_os2_h.html", null ],
-    [ "RTX5 Implementation", "rtx5_impl.html", "rtx5_impl" ],
+    [ "Header File: cmsis_os2.h", "cmsis_os2_h.html", null ],
+    [ "RTX v5 Implementation", "rtx5_impl.html", "rtx5_impl" ],
     [ "RTOS Validation", "rtosValidation.html", [
       [ "Sample Test Output", "rtosValidation.html#test_output", null ]
     ] ],
-    [ "Migration from RTOSv1 to RTOSv2", "os2Migration.html", [
+    [ "Migration from API v1 to API v2", "os2Migration.html", [
       [ "Kernel Information and Control", "os2Migration.html#mig_kernel", null ],
       [ "Thread Management", "os2Migration.html#mig_threadMgmt", null ],
       [ "Generic Wait Functions", "os2Migration.html#mig_wait", null ],
@@ -35,7 +35,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"pages.html"
+"os2Migration.html#mig_wait"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
