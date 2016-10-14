@@ -2,17 +2,17 @@ var NAVTREE =
 [
   [ "CMSIS-SVD", "index.html", [
     [ "System View Description", "index.html", "index" ],
-    [ "Revision History of CMSIS-SVD", "svd_revisionHistory.html", null ],
+    [ "Revision History", "svd_revisionHistory.html", null ],
     [ "SVD File Validation and Usage", "svd_validate_file_pg.html", null ],
-    [ "SVD File Example", "svd_Example_pg.html", null ],
     [ "SVDConv.exe", "svd_SVDConv_pg.html", null ],
-    [ "Reference", "modules.html", "modules" ]
+    [ "SVD Description (*.svd) Format", "svd_Format_pg.html", "svd_Format_pg" ],
+    [ "CMSIS-SVD Schema File", "schema_1_2_gr.html", null ]
   ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"group__clusterLevel__gr.html"
+"elem_cpu.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

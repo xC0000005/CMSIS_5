@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
-<title>Revision History</title>
-<title>CMSIS-SVD: Revision History</title>
+<title>File Conventions</title>
+<title>CMSIS-SVD: File Conventions</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="cmsis.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="jquery.js"></script>
@@ -88,7 +88,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-$(document).ready(function(){initNavTree('svd_revisionHistory.html','');});
+$(document).ready(function(){initNavTree('svd_xml_conventions_gr.html','');});
 </script>
 <div id="doc-content">
 <!-- window showing the filter options -->
@@ -107,33 +107,42 @@ $(document).ready(function(){initNavTree('svd_revisionHistory.html','');});
 
 <div class="header">
   <div class="headertitle">
-<div class="title">Revision History </div>  </div>
+<div class="title">File Conventions </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>From a schema perspective, CMSIS-SVD Version 1.1,1.2 and 1.3 are fully backward compatible to version 1.0.</p>
-<table class="doxtable">
-<tr>
-<th align="left">Version </th><th align="left">Description  </th></tr>
-<tr>
-<td align="left">V1.3.2 </td><td align="left">Extended command line of SVDConv.exe for partition.h file generation. </td></tr>
-<tr>
-<td align="left">V1.3.1 </td><td align="left">Added protection element - Fixed elem_peripheral "peripheral" name type to allow array format - Added Cortex A class CPUs to enumeration. </td></tr>
-<tr>
-<td align="left">V1.3 </td><td align="left">Added array of peripherals and nesting of clusters. The <a class="el" href="elem_cpu.html">CPU</a> section and <a class="el" href="elem_special.html#registerPropertiesGroup_gr">register properties</a> have been extended to reflect security aspects. </td></tr>
-<tr>
-<td align="left">V1.2 </td><td align="left">Added optional tags for Cortex-M7 in <a class="el" href="elem_cpu.html">CPU</a>. </td></tr>
-<tr>
-<td align="left">V1.1 </td><td align="left">Many of the features added in version 1.1 are required for generating CMSIS-Core device header files from a CMSIS SVD description. It can be expected that all CMSIS-SVD descriptions will comply with version 1.1 by now. </td></tr>
-<tr>
-<td align="left">V1.0 </td><td align="left">Initial revision. </td></tr>
-</table>
-<p>&#160;</p>
-<hr/>
- </div></div><!-- contents -->
+<div class="textblock"><p>The section outlines the main conventions for writing the SVD description file.</p>
+<h1><a class="anchor" id="Names"></a>
+Names</h1>
+<p>All <b>name</b> tags must comply with the ANSI C identifier naming restrictions. In particular, they must not contain any spaces or special characters. This is necessary to support the generation of device header files thus providing consistency between the names being shown by the debugger and the symbols being used in the CMSIS compliant target software.</p>
+<h1><a class="anchor" id="Constants"></a>
+Constants</h1>
+<p>Number constants shall be entered in hexadecimal, decimal, or binary format. </p>
+<ul>
+<li>The Hexadecimal format is indicated by a leading <b><span class="XML-Token">0x</span></b>. </li>
+<li>The Binary format is indicated by a leading <b><span class="XML-Token">#</span></b>. </li>
+<li>All other formats are interpreted as decimal numbers. </li>
+<li>The element <em>&lt;enumeratedValue&gt;</em>.<em>&lt;value&gt;</em> can be used to define constants.</li>
+</ul>
+<h1><a class="anchor" id="Comments"></a>
+Comments</h1>
+<p>Comments have the standard XML format. </p>
+<ul>
+<li>Start a comment with <b><span class="XML-Token">&lt;!--</span></b>. </li>
+<li>End a comment with <b><span class="XML-Token">--&gt;</span></b>.</li>
+</ul>
+<h1><a class="anchor" id="_"></a>
+Empty Tags</h1>
+<ul>
+<li>Single tags are not supported (for example, <em>&lt;name\&gt;</em>).</li>
+<li>The tag content must not consist of an empty string. Omit optional tags instead.</li>
+</ul>
+<dl class="section remark"><dt>Remarks</dt><dd>The latest <a class="el" href="schema_1_2_gr.html">CMSIS-SVD Schema File</a> is provided alongside this document. </dd></dl>
+</div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
+    <li class="navelem"><a class="el" href="svd_Format_pg.html">SVD Description (*.svd) Format</a></li>
     <li class="footer">Generated on Fri Oct 14 2016 18:48:45 for CMSIS-SVD by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
