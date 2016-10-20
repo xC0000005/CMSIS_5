@@ -231,18 +231,18 @@ void os_ThreadReadyPut (os_thread_t *thread) {
 
 /// Insert a Thread into the Delay list sorted by Delay (Lowest at Head).
 /// \param[in]  thread          thread object.
-/// \param[in]  millisec        delay value.
-void os_ThreadDelayInsert (os_thread_t *thread, uint32_t millisec) {
+/// \param[in]  delay           delay value.
+void os_ThreadDelayInsert (os_thread_t *thread, uint32_t delay) {
   os_thread_t *prev, *next;
 
-  if (millisec == osWaitForever) {
+  if (delay == osWaitForever) {
     prev = NULL;
     next = os_Info.thread.wait_list;
     while (next != NULL)  {
       prev = next;
       next = next->delay_next;
     }
-    thread->delay = millisec;
+    thread->delay = delay;
     thread->delay_prev = prev;
     thread->delay_next = next;
     if (prev != NULL) {
@@ -256,12 +256,12 @@ void os_ThreadDelayInsert (os_thread_t *thread, uint32_t millisec) {
   } else {
     prev = NULL;
     next = os_Info.thread.delay_list;
-    while ((next != NULL) && (next->delay <= millisec)) {
-      millisec -= next->delay;
+    while ((next != NULL) && (next->delay <= delay)) {
+      delay -= next->delay;
       prev = next;
       next = next->delay_next;
     }
-    thread->delay = millisec;
+    thread->delay = delay;
     thread->delay_prev = prev;
     thread->delay_next = next;
     if (prev != NULL) {
@@ -270,7 +270,7 @@ void os_ThreadDelayInsert (os_thread_t *thread, uint32_t millisec) {
       os_Info.thread.delay_list = thread;
     }
     if (next != NULL) {
-      next->delay -= millisec;
+      next->delay -= delay;
       next->delay_prev = thread;
     }
   }
@@ -440,9 +440,9 @@ void os_ThreadWaitExit (os_thread_t *thread, uint32_t ret_val, bool dispatch) {
 
 /// Enter Thread wait state.
 /// \param[in]  state           new thread state.
-/// \param[in]  millisec        wait time.
+/// \param[in]  timeout         timeout.
 /// \return true - success, false - failure.
-bool os_ThreadWaitEnter (uint8_t state, uint32_t millisec) {
+bool os_ThreadWaitEnter (uint8_t state, uint32_t timeout) {
   os_thread_t *thread;
 
   thread = os_ThreadGetRunning();
@@ -460,7 +460,7 @@ bool os_ThreadWaitEnter (uint8_t state, uint32_t millisec) {
   }
 
   thread->state = state;
-  os_ThreadDelayInsert(thread, millisec);
+  os_ThreadDelayInsert(thread, timeout);
   thread = os_ThreadListGet(&os_Info.thread.ready);
   os_ThreadSwitch(thread);
 
@@ -503,22 +503,25 @@ void os_ThreadPostProcess (os_thread_t *thread) {
 //  ==== Service Calls ====
 
 //  Service Calls definitions
-SVC0_3 (ThreadNew,         osThreadId_t,    os_thread_func_t, void *, const osThreadAttr_t *)
-SVC0_0 (ThreadGetId,       osThreadId_t)
-SVC0_1 (ThreadGetState,    osThreadState_t, osThreadId_t)
-SVC0_2 (ThreadSetPriority, osStatus_t,      osThreadId_t, osPriority_t)
-SVC0_1 (ThreadGetPriority, osPriority_t,    osThreadId_t)
-SVC0_0 (ThreadYield,       osStatus_t)
-SVC0_1 (ThreadSuspend,     osStatus_t,      osThreadId_t)
-SVC0_1 (ThreadResume,      osStatus_t,      osThreadId_t)
-SVC0_1 (ThreadDetach,      osStatus_t,      osThreadId_t)
-SVC0_1 (ThreadJoin,        osStatus_t,      osThreadId_t)
-SVC0_0N(ThreadExit,        void)
-SVC0_1 (ThreadTerminate,   osStatus_t,      osThreadId_t)
-SVC0_2 (ThreadFlagsSet,    int32_t,         osThreadId_t, int32_t)
-SVC0_1 (ThreadFlagsClear,  int32_t,         int32_t)
-SVC0_0 (ThreadFlagsGet,    int32_t)
-SVC0_3 (ThreadFlagsWait,   int32_t,         int32_t, uint32_t, uint32_t)
+SVC0_3 (ThreadNew,           osThreadId_t,    os_thread_func_t, void *, const osThreadAttr_t *)
+SVC0_1 (ThreadGetName,       const char *,    osThreadId_t)
+SVC0_0 (ThreadGetId,         osThreadId_t)
+SVC0_1 (ThreadGetState,      osThreadState_t, osThreadId_t)
+SVC0_1 (ThreadGetStackSize,  uint32_t, osThreadId_t)
+SVC0_1 (ThreadGetStackSpace, uint32_t, osThreadId_t)
+SVC0_2 (ThreadSetPriority,   osStatus_t,      osThreadId_t, osPriority_t)
+SVC0_1 (ThreadGetPriority,   osPriority_t,    osThreadId_t)
+SVC0_0 (ThreadYield,         osStatus_t)
+SVC0_1 (ThreadSuspend,       osStatus_t,      osThreadId_t)
+SVC0_1 (ThreadResume,        osStatus_t,      osThreadId_t)
+SVC0_1 (ThreadDetach,        osStatus_t,      osThreadId_t)
+SVC0_1 (ThreadJoin,          osStatus_t,      osThreadId_t)
+SVC0_0N(ThreadExit,          void)
+SVC0_1 (ThreadTerminate,     osStatus_t,      osThreadId_t)
+SVC0_2 (ThreadFlagsSet,      int32_t,         osThreadId_t, int32_t)
+SVC0_1 (ThreadFlagsClear,    int32_t,         int32_t)
+SVC0_0 (ThreadFlagsGet,      int32_t)
+SVC0_3 (ThreadFlagsWait,     int32_t,         int32_t, uint32_t, uint32_t)
 
 /// Create a thread and add it to Active Threads.
 /// \note API identical to osThreadNew
@@ -707,6 +710,25 @@ osThreadId_t os_svcThreadNew (os_thread_func_t func, void *argument, const osThr
   return thread;
 }
 
+/// Get name of a thread.
+/// \note API identical to osThreadGetName
+const char *os_svcThreadGetName (osThreadId_t thread_id) {
+  os_thread_t *thread = (os_thread_t *)thread_id;
+
+  // Check parameters
+  if ((thread == NULL) ||
+      (thread->id != os_IdThread)) {
+    return NULL;
+  }
+
+  // Check object state
+  if (thread->state == os_ObjectInactive) {
+    return NULL;
+  }
+
+  return thread->name;
+}
+
 /// Return the thread ID of the current running thread.
 /// \note API identical to osThreadGetId
 osThreadId_t os_svcThreadGetId (void) {
@@ -728,6 +750,60 @@ osThreadState_t os_svcThreadGetState (osThreadId_t thread_id) {
   }
 
   return ((osThreadState_t)(thread->state & os_ThreadStateMask));
+}
+
+/// Get stack size of a thread.
+/// \note API identical to osThreadGetStackSize
+uint32_t os_svcThreadGetStackSize (osThreadId_t thread_id) {
+  os_thread_t *thread = (os_thread_t *)thread_id;
+
+  // Check parameters
+  if ((thread == NULL) ||
+      (thread->id != os_IdThread)) {
+    return 0U;
+  }
+
+  // Check object state
+  if (thread->state == os_ObjectInactive) {
+    return 0U;
+  }
+
+  return thread->stack_size;
+}
+
+/// Get available stack space of a thread.
+/// \note API identical to osThreadGetStackSpace
+uint32_t os_svcThreadGetStackSpace (osThreadId_t thread_id) {
+  os_thread_t *thread = (os_thread_t *)thread_id;
+  uint32_t    *stack;
+  uint32_t     space;
+
+  // Check parameters
+  if ((thread == NULL) ||
+      (thread->id != os_IdThread)) {
+    return 0U;
+  }
+
+  // Check object state
+  if (thread->state == os_ObjectInactive) {
+    return 0U;
+  }
+
+  if ((os_Config.flags & os_ConfigStackWatermark) == 0U) {
+    return 0U;
+  }
+
+  stack = thread->stack_mem;
+  if (*stack++ != os_StackMagicWord) {
+    return 0U;
+  }
+  for (space = 4U; space < thread->stack_size; space += 4U) {
+    if (*stack++ != os_StackFillPattern) {
+      break;
+    }
+  }
+
+  return space;
 }
 
 /// Change priority of a thread.
@@ -1152,7 +1228,7 @@ int32_t os_svcThreadFlagsGet (void) {
 
 /// Wait for one or more Thread Flags of the current running thread to become signaled.
 /// \note API identical to osThreadFlagsWait
-int32_t os_svcThreadFlagsWait (int32_t flags, uint32_t options, uint32_t millisec) {
+int32_t os_svcThreadFlagsWait (int32_t flags, uint32_t options, uint32_t timeout) {
   os_thread_t *thread;
   int32_t      thread_flags;
 
@@ -1173,12 +1249,12 @@ int32_t os_svcThreadFlagsWait (int32_t flags, uint32_t options, uint32_t millise
   }
 
   // Check if timeout is specified
-  if (millisec != 0U) {
+  if (timeout != 0U) {
     // Store waiting flags and options
     thread->wait_flags = flags;
     thread->flags_options = (uint8_t)options;
     // Suspend current Thread
-    os_ThreadWaitEnter(os_ThreadWaitingThreadFlags, millisec);
+    os_ThreadWaitEnter(os_ThreadWaitingThreadFlags, timeout);
     return osErrorTimeout;
   }
 
@@ -1235,6 +1311,14 @@ osThreadId_t osThreadNew (os_thread_func_t func, void *argument, const osThreadA
   }
 }
 
+/// Get name of a thread.
+const char *osThreadGetName (osThreadId_t thread_id) {
+  if (__get_IPSR() != 0U) {
+    return NULL;                                // Not allowed in ISR
+  }
+  return  __svcThreadGetName(thread_id);
+}
+
 /// Return the thread ID of the current running thread.
 osThreadId_t osThreadGetId (void) {
   if (__get_IPSR() != 0U) {
@@ -1249,6 +1333,22 @@ osThreadState_t osThreadGetState (osThreadId_t thread_id) {
     return osThreadError;                       // Not allowed in ISR
   }
   return __svcThreadGetState(thread_id);
+}
+
+/// Get stack size of a thread.
+uint32_t osThreadGetStackSize (osThreadId_t thread_id) {
+  if (__get_IPSR() != 0U) {
+    return 0U;                                  // Not allowed in ISR
+  }
+  return __svcThreadGetStackSize(thread_id);
+}
+
+/// Get available stack space of a thread.
+uint32_t osThreadGetStackSpace (osThreadId_t thread_id) {
+  if (__get_IPSR() != 0U) {
+    return 0U;                                  // Not allowed in ISR
+  }
+  return __svcThreadGetStackSpace(thread_id);
 }
 
 /// Change priority of a thread.
@@ -1347,9 +1447,9 @@ int32_t osThreadFlagsGet (void) {
 }
 
 /// Wait for one or more Thread Flags of the current running thread to become signaled.
-int32_t osThreadFlagsWait (int32_t flags, uint32_t options, uint32_t millisec) {
+int32_t osThreadFlagsWait (int32_t flags, uint32_t options, uint32_t timeout) {
   if (__get_IPSR() != 0U) {
     return osErrorISR;                          // Not allowed in ISR
   }
-  return  __svcThreadFlagsWait(flags, options, millisec);
+  return  __svcThreadFlagsWait(flags, options, timeout);
 }

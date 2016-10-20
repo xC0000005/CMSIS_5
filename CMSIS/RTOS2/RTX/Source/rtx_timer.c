@@ -126,11 +126,12 @@ __NO_RETURN void os_TimerThread (void *argument) {
 //  ==== Service Calls ====
 
 //  Service Calls definitions
-SVC0_4(TimerNew,       osTimerId_t, os_timer_func_t, osTimerType_t, void *, const osTimerAttr_t *)
-SVC0_2(TimerStart,     osStatus_t,  osTimerId_t, uint32_t)
-SVC0_1(TimerStop,      osStatus_t,  osTimerId_t)
-SVC0_1(TimerIsRunning, uint32_t,    osTimerId_t)
-SVC0_1(TimerDelete,    osStatus_t,  osTimerId_t)
+SVC0_4(TimerNew,       osTimerId_t,  os_timer_func_t, osTimerType_t, void *, const osTimerAttr_t *)
+SVC0_1(TimerGetName,   const char *, osTimerId_t)
+SVC0_2(TimerStart,     osStatus_t,   osTimerId_t, uint32_t)
+SVC0_1(TimerStop,      osStatus_t,   osTimerId_t)
+SVC0_1(TimerIsRunning, uint32_t,     osTimerId_t)
+SVC0_1(TimerDelete,    osStatus_t,   osTimerId_t)
 
 /// Create and Initialize a timer.
 /// \note API identical to osTimerNew
@@ -220,9 +221,28 @@ osTimerId_t os_svcTimerNew (os_timer_func_t func, osTimerType_t type, void *argu
   return timer;
 }
 
+/// Get name of a timer.
+/// \note API identical to osTimerGetName
+const char *os_svcTimerGetName (osTimerId_t timer_id) {
+  os_timer_t *timer = (os_timer_t *)timer_id;
+
+  // Check parameters
+  if ((timer == NULL) ||
+      (timer->id != os_IdTimer)) {
+    return NULL;
+  }
+
+  // Check object state
+  if (timer->state == os_ObjectInactive) {
+    return NULL;
+  }
+
+  return timer->name;
+}
+
 /// Start or restart a timer.
 /// \note API identical to osTimerStart
-osStatus_t os_svcTimerStart (osTimerId_t timer_id, uint32_t millisec) {
+osStatus_t os_svcTimerStart (osTimerId_t timer_id, uint32_t ticks) {
   os_timer_t *timer = (os_timer_t *)timer_id;
 
   // Check parameters
@@ -230,7 +250,7 @@ osStatus_t os_svcTimerStart (osTimerId_t timer_id, uint32_t millisec) {
       (timer->id != os_IdTimer)) {
     return osErrorParameter;
   }
-  if (millisec == 0U) {
+  if (ticks == 0U) {
     return osErrorParameter;
   }
 
@@ -238,7 +258,7 @@ osStatus_t os_svcTimerStart (osTimerId_t timer_id, uint32_t millisec) {
   switch (timer->state) {
     case os_TimerStopped:
       timer->state = os_TimerRunning;
-      timer->load  = millisec;
+      timer->load  = ticks;
       break;
     case os_TimerRunning:
       os_TimerRemove(timer);
@@ -248,7 +268,7 @@ osStatus_t os_svcTimerStart (osTimerId_t timer_id, uint32_t millisec) {
       return osErrorResource;
   }
 
-  os_TimerInsert(timer, millisec);
+  os_TimerInsert(timer, ticks);
 
   return osOK;
 }
@@ -349,12 +369,20 @@ osTimerId_t osTimerNew (os_timer_func_t func, osTimerType_t type, void *argument
   }
 }
 
+/// Get name of a timer.
+const char *osTimerGetName (osTimerId_t timer_id) {
+  if (__get_IPSR() != 0U) {
+    return NULL;                                // Not allowed in ISR
+  }
+  return  __svcTimerGetName(timer_id);
+}
+
 /// Start or restart a timer.
-osStatus_t osTimerStart (osTimerId_t timer_id, uint32_t millisec) {
+osStatus_t osTimerStart (osTimerId_t timer_id, uint32_t ticks) {
   if (__get_IPSR() != 0U) {
     return osErrorISR;                          // Not allowed in ISR
   }
-  return __svcTimerStart(timer_id, millisec);
+  return __svcTimerStart(timer_id, ticks);
 }
 
 /// Stop a timer.

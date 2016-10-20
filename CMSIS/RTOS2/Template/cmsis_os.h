@@ -17,7 +17,7 @@
  *
  * ----------------------------------------------------------------------
  *
- * $Date:        18. October 2016
+ * $Date:        20. October 2016
  * $Revision:    V2.0
  *
  * Project:      CMSIS-RTOS API
@@ -61,9 +61,12 @@
  *     - extended number of thread priorities
  *     - renamed osPrioriry to osPrioriry_t
  *     - replaced osThreadCreate with osThreadNew
+ *     - added: osThreadGetName
  *     - added: osThreadState_t and osThreadGetState
+ *     - added: osThreadGetStackSize, osThreadGetStackSpace
  *     - added: osThreadSuspend, osThreadResume
  *     - added: osThreadJoin, osThreadDetach, osThreadExit
+ *     - added: osThreadGetCount, osThreadEnumerate
  *     - added: Thread Flags (moved from Signals) 
  *    Signals:
  *     - renamed osSignals to osThreadFlags (moved to Thread Flags)
@@ -78,21 +81,22 @@
  *     - deprecated: osWait
  *    Timer:
  *     - replaced osTimerCreate with osTimerNew
- *     - added: osTimerIsRunning
+ *     - added: osTimerGetName, osTimerIsRunning
  *    Mutex:
  *     - extended: attributes (Recursive, Priority Inherit, Robust)
  *     - replaced osMutexCreate with osMutexNew
  *     - renamed osMutexWait to osMutexAcquire
- *     - added: osMutexGetOwner
+ *     - added: osMutexGetName, osMutexGetOwner
  *    Semaphore:
  *     - extended: maximum and initial token count
  *     - replaced osSemaphoreCreate with osSemaphoreNew
  *     - renamed osSemaphoreWait to osSemaphoreAcquire (changed return value)
- *     - added: osSemaphoreGetCount
+ *     - added: osSemaphoreGetName, osSemaphoreGetCount
  *    Memory Pool:
  *     - using osMemoryPool prefix instead of osPool
  *     - replaced osPoolCreate with osMemoryPoolNew
  *     - extended osMemoryPoolAlloc (timeout)
+ *     - added: osMemoryPoolGetName
  *     - added: osMemoryPoolGetCapacity, osMemoryPoolGetBlockSize
  *     - added: osMemoryPoolGetCount, osMemoryPoolGetSpace
  *     - added: osMemoryPoolDelete
@@ -102,6 +106,7 @@
  *     - using osMessageQueue prefix instead of osMessage
  *     - replaced osMessageCreate with osMessageQueueNew
  *     - updated: osMessageQueuePut, osMessageQueueGet
+ *     - added: osMessageQueueGetName
  *     - added: osMessageQueueGetCapacity, osMessageQueueGetMsgSize
  *     - added: osMessageQueueGetCount, osMessageQueueGetSpace
  *     - added: osMessageQueueReset, osMessageQueueDelete

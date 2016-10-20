@@ -64,6 +64,7 @@ void os_MutexOwnerRelease (os_mutex_t *mutex_list) {
 
 //  Service Calls definitions
 SVC0_1(MutexNew,      osMutexId_t,  const osMutexAttr_t *)
+SVC0_1(MutexGetName,  const char *, osMutexId_t)
 SVC0_2(MutexAcquire,  osStatus_t,   osMutexId_t, uint32_t)
 SVC0_1(MutexRelease,  osStatus_t,   osMutexId_t)
 SVC0_1(MutexGetOwner, osThreadId_t, osMutexId_t)
@@ -127,9 +128,28 @@ osMutexId_t os_svcMutexNew (const osMutexAttr_t *attr) {
   return mutex;
 }
 
+/// Get name of a Mutex object.
+/// \note API identical to osMutexGetName
+const char *os_svcMutexGetName (osMutexId_t mutex_id) {
+  os_mutex_t *mutex = (os_mutex_t *)mutex_id;
+
+  // Check parameters
+  if ((mutex == NULL) ||
+      (mutex->id != os_IdMutex)) {
+    return NULL;
+  }
+
+  // Check object state
+  if (mutex->state == os_ObjectInactive) {
+    return NULL;
+  }
+
+  return mutex->name;
+}
+
 /// Acquire a Mutex or timeout if it is locked.
 /// \note API identical to osMutexAcquire
-osStatus_t os_svcMutexAcquire (osMutexId_t mutex_id, uint32_t millisec) {
+osStatus_t os_svcMutexAcquire (osMutexId_t mutex_id, uint32_t timeout) {
   os_mutex_t  *mutex = (os_mutex_t *)mutex_id;
   os_thread_t *runnig_thread;
 
@@ -171,7 +191,7 @@ osStatus_t os_svcMutexAcquire (osMutexId_t mutex_id, uint32_t millisec) {
   }
 
   // Check if timeout is specified
-  if (millisec != 0U) {
+  if (timeout != 0U) {
     // Check if Priority inheritance protocol is enabled
     if (mutex->attr & osMutexPrioInherit) {
       // Raise priority of owner Thread if lower than priority of running Thread
@@ -182,7 +202,7 @@ osStatus_t os_svcMutexAcquire (osMutexId_t mutex_id, uint32_t millisec) {
     }
     // Suspend current Thread
     os_ThreadListPut((os_object_t*)mutex, runnig_thread);
-    os_ThreadWaitEnter(os_ThreadWaitingMutex, millisec);
+    os_ThreadWaitEnter(os_ThreadWaitingMutex, timeout);
     return osErrorTimeout;
   }
 
@@ -386,12 +406,20 @@ osMutexId_t osMutexNew (const osMutexAttr_t *attr) {
   }
 }
 
+/// Get name of a Mutex object.
+const char *osMutexGetName (osMutexId_t mutex_id) {
+  if (__get_IPSR() != 0U) {
+    return NULL;                                // Not allowed in ISR
+  }
+  return  __svcMutexGetName(mutex_id);
+}
+
 /// Acquire a Mutex or timeout if it is locked.
-osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t millisec) {
+osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t timeout) {
   if (__get_IPSR() != 0U) {
     return osErrorISR;                          // Not allowed in ISR
   }
-  return  __svcMutexAcquire(mutex_id, millisec);
+  return  __svcMutexAcquire(mutex_id, timeout);
 }
 
 /// Release a Mutex that was acquired by \ref osMutexAcquire.

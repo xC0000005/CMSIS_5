@@ -17,7 +17,7 @@
  *
  * ----------------------------------------------------------------------
  *
- * $Date:        17. October 2016
+ * $Date:        20. October 2016
  * $Revision:    V2.0
  *
  * Project:      CMSIS-RTOS API
@@ -53,13 +53,17 @@
  *     - added: osKernelState_t and osKernelGetState (replaces osKernelRunning)
  *     - added: osKernelLock, osKernelUnlock
  *     - added: osKernelSuspend, osKernelResume
- *     - added: osKernelGetTime
- *     - renamed osKernelSysTick to osKernelGetSysTick
+ *     - added: osKernelGetTickCount, osKernelGetTickFreq
+ *     - renamed osKernelSysTick to osKernelGetSysTimerCount
+ *     - replaced osKernelSysTickFrequency with osKernelGetSysTimerFreq
+ *     - deprecated osKernelSysTickMicroSec
  *    Thread:
  *     - extended number of thread priorities
  *     - renamed osPrioriry to osPrioriry_t
  *     - replaced osThreadCreate with osThreadNew
+ *     - added: osThreadGetName
  *     - added: osThreadState_t and osThreadGetState
+ *     - added: osThreadGetStackSize, osThreadGetStackSpace
  *     - added: osThreadSuspend, osThreadResume
  *     - added: osThreadJoin, osThreadDetach, osThreadExit
  *     - added: Thread Flags (moved from Signals) 
@@ -76,21 +80,22 @@
  *     - deprecated: osWait
  *    Timer:
  *     - replaced osTimerCreate with osTimerNew
- *     - added: osTimerIsRunning
+ *     - added: osTimerGetName, osTimerIsRunning
  *    Mutex:
  *     - extended: attributes (Recursive, Priority Inherit, Robust)
  *     - replaced osMutexCreate with osMutexNew
  *     - renamed osMutexWait to osMutexAcquire
- *     - added: osMutexGetOwner
+ *     - added: osMutexGetName, osMutexGetOwner
  *    Semaphore:
  *     - extended: maximum and initial token count
  *     - replaced osSemaphoreCreate with osSemaphoreNew
  *     - renamed osSemaphoreWait to osSemaphoreAcquire (changed return value)
- *     - added: osSemaphoreGetCount
+ *     - added: osSemaphoreGetName, osSemaphoreGetCount
  *    Memory Pool:
  *     - using osMemoryPool prefix instead of osPool
  *     - replaced osPoolCreate with osMemoryPoolNew
  *     - extended osMemoryPoolAlloc (timeout)
+ *     - added: osMemoryPoolGetName
  *     - added: osMemoryPoolGetCapacity, osMemoryPoolGetBlockSize
  *     - added: osMemoryPoolGetCount, osMemoryPoolGetSpace
  *     - added: osMemoryPoolDelete
@@ -100,6 +105,7 @@
  *     - using osMessageQueue prefix instead of osMessage
  *     - replaced osMessageCreate with osMessageQueueNew
  *     - updated: osMessageQueuePut, osMessageQueueGet
+ *     - added: osMessageQueueGetName
  *     - added: osMessageQueueGetCapacity, osMessageQueueGetMsgSize
  *     - added: osMessageQueueGetCount, osMessageQueueGetSpace
  *     - added: osMessageQueueReset, osMessageQueueDelete
@@ -383,12 +389,14 @@ int32_t osKernelRunning(void);
 #if (osCMSIS < 0x20000U)
 uint32_t osKernelSysTick (void);
 #else
-#define  osKernelSysTick osKernelGetTick
+#define  osKernelSysTick osKernelGetSysTimerCount
 #endif
  
 /// The RTOS kernel system timer frequency in Hz.
 /// \note Reflects the system timer setting and is typically defined in a configuration file.
+#if (osCMSIS < 0x20000U)
 #define osKernelSysTickFrequency 100000000
+#endif
  
 /// Convert a microseconds value to a RTOS kernel system timer value.
 /// \param         microsec     time value in microseconds.
@@ -396,7 +404,7 @@ uint32_t osKernelSysTick (void);
 #if (osCMSIS < 0x20000U)
 #define osKernelSysTickMicroSec(microsec) (((uint64_t)microsec * (osKernelSysTickFrequency)) / 1000000)
 #else
-#define osKernelSysTickMicroSec osKernelTickMicroSec
+#define osKernelSysTickMicroSec(microsec) (((uint64_t)microsec *  osKernelGetSysTimerFreq()) / 1000000)
 #endif
  
 #endif  // System Timer available

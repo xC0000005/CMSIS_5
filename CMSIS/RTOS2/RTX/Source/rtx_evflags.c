@@ -156,12 +156,13 @@ void os_EventFlagsPostProcess (os_event_flags_t *ef) {
 //  ==== Service Calls ====
 
 //  Service Calls definitions
-SVC0_1(EventFlagsNew,    osEventFlagsId_t, const osEventFlagsAttr_t *)
-SVC0_2(EventFlagsSet,    int32_t,          osEventFlagsId_t, int32_t)
-SVC0_2(EventFlagsClear,  int32_t,          osEventFlagsId_t, int32_t)
-SVC0_1(EventFlagsGet,    int32_t,          osEventFlagsId_t)
-SVC0_4(EventFlagsWait,   int32_t,          osEventFlagsId_t, int32_t, uint32_t, uint32_t)
-SVC0_1(EventFlagsDelete, osStatus_t,       osEventFlagsId_t)
+SVC0_1(EventFlagsNew,     osEventFlagsId_t, const osEventFlagsAttr_t *)
+SVC0_1(EventFlagsGetName, const char *,     osEventFlagsId_t)
+SVC0_2(EventFlagsSet,     int32_t,          osEventFlagsId_t, int32_t)
+SVC0_2(EventFlagsClear,   int32_t,          osEventFlagsId_t, int32_t)
+SVC0_1(EventFlagsGet,     int32_t,          osEventFlagsId_t)
+SVC0_4(EventFlagsWait,    int32_t,          osEventFlagsId_t, int32_t, uint32_t, uint32_t)
+SVC0_1(EventFlagsDelete,  osStatus_t,       osEventFlagsId_t)
 
 /// Create and Initialize an Event Flags object.
 /// \note API identical to osEventFlagsNew
@@ -215,6 +216,25 @@ osEventFlagsId_t os_svcEventFlagsNew (const osEventFlagsAttr_t *attr) {
   os_Info.post_process.event_flags = os_EventFlagsPostProcess;
 
   return ef;
+}
+
+/// Get name of an Event Flags object.
+/// \note API identical to osEventFlagsGetName
+const char *os_svcEventFlagsGetName (osEventFlagsId_t ef_id) {
+  os_event_flags_t *ef = (os_event_flags_t *)ef_id;
+
+  // Check parameters
+  if ((ef == NULL) ||
+      (ef->id != os_IdEventFlags)) {
+    return NULL;
+  }
+
+  // Check object state
+  if (ef->state == os_ObjectInactive) {
+    return NULL;
+  }
+
+  return ef->name;
 }
 
 /// Set the specified Event Flags.
@@ -308,7 +328,7 @@ int32_t os_svcEventFlagsGet (osEventFlagsId_t ef_id) {
 
 /// Wait for one or more Event Flags to become signaled.
 /// \note API identical to osEventFlagsWait
-int32_t os_svcEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t millisec) {
+int32_t os_svcEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t timeout) {
   os_event_flags_t *ef = (os_event_flags_t *)ef_id;
   os_thread_t      *running_thread;
   int32_t           event_flags;
@@ -339,13 +359,13 @@ int32_t os_svcEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t op
   }
 
   // Check if timeout is specified
-  if (millisec != 0U) {
+  if (timeout != 0U) {
     // Store waiting flags and options
     running_thread->wait_flags = flags;
     running_thread->flags_options = (uint8_t)options;
     // Suspend current Thread
     os_ThreadListPut((os_object_t*)ef, running_thread);
-    os_ThreadWaitEnter(os_ThreadWaitingEventFlags, millisec);
+    os_ThreadWaitEnter(os_ThreadWaitingEventFlags, timeout);
     return osErrorTimeout;
   }
 
@@ -429,7 +449,7 @@ int32_t os_isrEventFlagsSet (osEventFlagsId_t ef_id, int32_t flags) {
 /// Wait for one or more Event Flags to become signaled.
 /// \note API identical to osEventFlagsWait
 __STATIC_INLINE
-int32_t os_isrEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t millisec) {
+int32_t os_isrEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t timeout) {
   os_event_flags_t *ef = (os_event_flags_t *)ef_id;
   int32_t           event_flags;
 
@@ -441,7 +461,7 @@ int32_t os_isrEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t op
   if ((uint32_t)flags & ~((1U << os_EventFlagsLimit) - 1U)) {
     return osErrorParameter;
   }
-  if (millisec != 0U) {
+  if (timeout != 0U) {
     return osErrorParameter;
   }
 
@@ -475,6 +495,14 @@ osEventFlagsId_t osEventFlagsNew (const osEventFlagsAttr_t *attr) {
   }
 }
 
+/// Get name of an Event Flags object.
+const char *osEventFlagsGetName (osEventFlagsId_t ef_id) {
+  if (__get_IPSR() != 0U) {
+    return NULL;                                // Not allowed in ISR
+  }
+  return  __svcEventFlagsGetName(ef_id);
+}
+
 /// Set the specified Event Flags.
 int32_t osEventFlagsSet (osEventFlagsId_t ef_id, int32_t flags) {
   if (__get_IPSR() != 0U) {                     // in ISR
@@ -503,11 +531,11 @@ int32_t osEventFlagsGet (osEventFlagsId_t ef_id) {
 }
 
 /// Wait for one or more Event Flags to become signaled.
-int32_t osEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t millisec) {
+int32_t osEventFlagsWait (osEventFlagsId_t ef_id, int32_t flags, uint32_t options, uint32_t timeout) {
   if (__get_IPSR() != 0U) {                     // in ISR
-    return os_isrEventFlagsWait(ef_id, flags, options, millisec);
+    return os_isrEventFlagsWait(ef_id, flags, options, timeout);
   } else {                                      // in Thread
-    return  __svcEventFlagsWait(ef_id, flags, options, millisec);
+    return  __svcEventFlagsWait(ef_id, flags, options, timeout);
   }
 }
 
