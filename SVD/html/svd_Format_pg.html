@@ -146,22 +146,23 @@ Default values for register attributes like register size, reset value, and acce
 <li><a class="el" href="elem_special.html">Special Elements:</a> Specific elements that occur in various other elements are described in this section. <br/>
 <br/>
 </li>
-<li><b>Vendor Extensions:</b> The CMSIS-SVD format includes a section named <em>vendorExtensions</em> positioned after the closing tag <em>peripherals</em>. This allows silicon vendors and tool partners to innovate and expand the description beyond the current specification.</li>
+<li><b>Vendor Extensions:</b> The CMSIS-SVD format includes a section named <em>&lt;vendorExtensions&gt;</em> positioned after the closing tag <em>&lt;/peripherals&gt;</em>. This allows silicon vendors and tool partners to extend the description beyond the current specification.</li>
 </ul>
 <p><b>Multiple Instantiation</b></p>
-<p>CMSIS-SVD supports the reuse of whole sections of the description. The attribute <em>derivedFrom</em> for the peripheral-, register-, and field-section specifies the source of the section to be copied from. Individual tags can be used to redefine specific elements within a copied section. In case the name of the description source is not unique, the name needs to be qualified hierarchically until the element composite name becomes unique. Hierarchies are separated by a dot. For example, <em>&lt;peripheral name&gt;.&lt;register name&gt;.&lt;field name&gt;</em>.</p>
+<p>CMSIS-SVD supports the reuse of whole sections of the description. The attribute <em>derivedFrom</em> for <a class="el" href="elem_peripherals.html#elem_peripheral">peripheral</a>, <a class="el" href="elem_registers.html#elem_register">register</a>, and <a class="el" href="elem_registers.html#elem_field">field</a> specifies the source of the section to be copied from. Individual tags can be used to redefine specific elements within a copied section. In case the name of the description source is not unique, the name needs to be qualified hierarchically until the element composite name becomes unique. Hierarchies are separated by a dot. For example, <em>&lt;peripheral name&gt;.&lt;register name&gt;.&lt;field name&gt;</em>.</p>
 <p><b>Array of Elements</b></p>
-<p>A powerfull construct in data structures of the C programming language is the <em>array</em>. An array is a series of data elements of the same type selected via an index. CMSIS-SVD supports arrays of <em>&lt;peripherals&gt;</em>, <em>&lt;cluster&gt;</em> and <em>&lt;register&gt;</em>.</p>
+<p>A powerfull construct in data structures of the C programming language is the array. An array is a series of data elements of the same type selected via an index. CMSIS-SVD supports arrays for <a class="el" href="elem_peripherals.html#elem_peripheral">peripheral</a>, <a class="el" href="elem_registers.html#elem_cluster">cluster</a>, and <a class="el" href="elem_registers.html#elem_register">register</a>.</p>
 <p><b>Peripheral Grouping</b></p>
-<p>Peripherals that provide similar functionality (Simple Timer, Complex Timer) can be grouped with the element <em>groupName</em>. All peripherals associated with the same group name are collectively listed under this group in the order they have been specified in the file. Collecting similar or related peripherals into peripheral groups helps structuring the list of peripherals in the debugger.</p>
+<p>Peripherals that provide similar functionality (Simple Timer, Complex Timer) can be grouped with the element <em>&lt;groupName&gt;</em>. Peripheral groups help structuring the list of peripherals in the debugger. All peripherals associated with the same group name are collectively listed under this group in the order they were specified in the SVD file.</p>
 <p><b>Descriptions</b></p>
-<p>On each level, the tag <em>description</em> provides verbose information about the respective element. The description field plays an important part in improving the software development productivity as it gives instant access to information that otherwise would need to be looked up in the device documentation. </p>
+<p>On each level, the tag <em>&lt;description&gt;</em> provides verbose information about the respective element. The description field plays an important part in improving software development productivity as it gives instant access to information that otherwise would need to be looked up in the device documentation.</p>
+<p>&#160; </p>
 </div></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Fri Oct 14 2016 18:48:45 for CMSIS-SVD by ARM Ltd. All rights reserved.
+    <li class="footer">Generated on Tue Oct 25 2016 10:43:11 for CMSIS-SVD by ARM Ltd. All rights reserved.
 	<!--
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.6 
