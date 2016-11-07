@@ -2,7 +2,7 @@
  * @file     partition_ARMv8MML.h
  * @brief    CMSIS-CORE Initial Setup for Secure / Non-Secure Zones for ARMv8M
  * @version  V5.00
- * @date     26. September 2016
+ * @date     04. November 2016
  ******************************************************************************/
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
@@ -30,7 +30,7 @@
 */
 
 /*
-// <e>Initialize Secure Attribute Unit (SAU) CTRL register
+// <e>Initialize Security Attribution Unit (SAU) CTRL register
 */
 #define SAU_INIT_CTRL          1
 
@@ -54,7 +54,7 @@
 */
 
 /*
-// <h>Initialize Secure Attribute Unit (SAU) Address Regions
+// <h>Initialize Security Attribution Unit (SAU) Address Regions
 // <i>SAU configuration specifies regions to be one of:
 // <i> - Secure and Non-Secure Callable
 // <i> - Non-Secure
@@ -315,6 +315,10 @@
 // </e>
 */
 
+/*
+// <o>Floating Point Unit usage <0=> Secure state only <1=> Secure and Non-Secure state 
+*/
+#define TZ_FPU_NS_USAGE 1 
 
 /*
 // <h>Setup Interrupt Target
@@ -1136,6 +1140,10 @@ __STATIC_INLINE void TZ_SAU_Setup (void)
                    ((SCB_AIRCR_PRIS_VAL         << SCB_AIRCR_PRIS_Pos)         & SCB_AIRCR_PRIS_Msk)         |
                    ((SCB_AIRCR_BFHFNMINS_VAL    << SCB_AIRCR_BFHFNMINS_Pos)    & SCB_AIRCR_BFHFNMINS_Msk);
   #endif /* defined (SCB_CSR_AIRCR_INIT) && (SCB_CSR_AIRCR_INIT == 1U) */
+
+  #if defined (__FPU_USED) && (__FPU_USED == 1U) && defined (TZ_FPU_NS_USAGE) && (TZ_FPU_NS_USAGE == 1U)
+    SCB->NSACR |= (0x3U << 10U);  // enable non-secure access to CP10 and CP11
+  #endif
 
   #if defined (NVIC_INIT_ITNS0) && (NVIC_INIT_ITNS0 == 1U)
     NVIC->ITNS[0] = NVIC_INIT_ITNS0_VAL;

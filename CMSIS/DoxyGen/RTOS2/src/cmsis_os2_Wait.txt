@@ -13,11 +13,11 @@ The Generic Wait function group provides means for a time delay and allow to wai
 
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
 /** 
-\fn osStatus_t osDelay (uint32_t millisec);
+\fn osStatus_t osDelay (uint32_t ticks)
 \details
-Wait for a specified time period in \a millisec.
+Wait for a specified time period in \a kernel ticks.
 
-The \ref CMSIS_RTOS_TimeOutValue "millisec" value is converted to a number of timer ticks and is therefore an upper bound. The
+The \ref CMSIS_RTOS_TimeOutValue "timeout" value represents a number of timer ticks and is an upper bound. The
 exact time delay depends on the actual time elapsed since the last timer tick. 
 
 For a value of <b>1</b>, the system waits until the next timer tick occurs. That means that the actual time delay may be up
@@ -30,7 +30,7 @@ to one timer tick less.
 \note Cannot be called from \ref CMSIS_RTOS_ISR_Calls "Interrupt Service Routines".
  
 <b>Code Example</b>
-\code
+\code{.c}
 #include "cmsis_os2.h"
  
 void *Thread_1 (void *arg)  {               // Thread function
@@ -47,14 +47,14 @@ void *Thread_1 (void *arg)  {               // Thread function
 */ 
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
 /** 
-\fn osStatus_t osDelayUntil (uint64_t millisec)
+\fn osStatus_t osDelayUntil (uint64_t ticks)
 \details
-Wait until an absolute time - specified in millisec - is reached. 
+Wait until an absolute time - specified in kernel ticks - is reached. 
 
-The \ref CMSIS_RTOS_TimeOutValue "millisec" value is converted to a number of timer ticks and is therefore an upper bound. The
+The \ref CMSIS_RTOS_TimeOutValue "timeout" value represents a number of timer ticks and is an upper bound. The
 exact time delay depends on the actual time elapsed since the last timer tick. 
 
-\ref osKernelGetTime can be used to retrieve the current elapsed time of the kernel in millisec.
+\ref osKernelGetSysTimerCount can be used to retrieve the current elapsed time of the kernel in .
 
 \ref osStatus_t return values:
  - \em osEventTimeout: the time delay is executed.
@@ -63,7 +63,7 @@ exact time delay depends on the actual time elapsed since the last timer tick.
 \note Cannot be called from \ref CMSIS_RTOS_ISR_Calls "Interrupt Service Routines". 
 
 <b>Code Example</b>
-\code
+\code{.c}
 #include "cmsis_os2.h"
  
 void *Thread_1 (void *arg)  {               // Thread function

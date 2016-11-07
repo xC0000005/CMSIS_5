@@ -1,5 +1,3 @@
-
-
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
 //  ==== Memory Pool Management ====
 /** 
@@ -18,7 +16,7 @@ Working with Memory Pools
 -------------------------
 Follow these steps to create and use a memory pool:
 -# Declare a data structure that combines a number of elements:
-\code
+\code{.c}
 typedef struct {
   uint32_t length;
   uint32_t width;
@@ -27,16 +25,15 @@ typedef struct {
 } properties_t;
 \endcode
 -# Declare a memory pool of these objects as a block of memory:
-\code
-osPoolDef (object_pool, 10, properties_t);  // Declare memory pool
-osPoolId  (object_pool_id);                 // Memory pool ID
+\code{.c}
+osMemoryPoolId_t  object_pool_id;                 // Memory pool ID
 \endcode
 -# Then, create the memory pool in a thread:
-\code
-object_pool_id = osPoolCreate(osPool(object_pool));
+\code{.c}
+object_pool_id = osMemoryPoolNew(16, sizeof(properties_t), NULL);
 \endcode
 -# Allocate the pool within a thread and fill it with data:
-\code
+\code{.c}
 properties_t *object_data;
 *object_data = (properties_t *) osPoolAlloc(object_pool_id);
  
@@ -68,7 +65,7 @@ object_data->weight = 1000;
 */
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
 /** 
-\fn void *osMemoryPoolAlloc (osMemoryPoolId_t mp_id, uint32_t millisec)
+\fn void *osMemoryPoolAlloc (osMemoryPoolId_t mp_id, uint32_t timeout)
 \details
 
 */

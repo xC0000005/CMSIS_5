@@ -28,19 +28,19 @@ Working with Mutexes
 --------------------
 To use mutexes, you need to follow these steps for creating and using them:
 -# Declare the mutex container and initialize the mutex:
-\code
+\code{.c}
 osMutexId  (uart_mutex_id); // Mutex ID
 \endcode
 -# Create the mutex in a thread:
-\code
+\code{.c}
 uart_mutex_id = osMutexNew(NULL);
 \endcode
 -# Acquire the mutex when peripheral access is required:
-\code
+\code{.c}
 osMutexAcquire(uart_mutex_id, osWaitForever);
 \endcode
 -# When finished with the peripheral access, release the mutex:
-\code
+\code{.c}
 osMutexRelease(uart_mutex_id);
 \endcode
 
@@ -103,16 +103,16 @@ void CreateMutex (void)  {
 */
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
 /**
-\fn osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t millisec)
+\fn osStatus_t osMutexAcquire (osMutexId_t mutex_id, uint32_t timeout)
 \details
 Wait until a Mutex becomes available. If no other thread has obtained the Mutex, the function instantly returns and blocks the mutex object. 
 
-The argument \a millisec specifies how long the system waits for a mutex.
+The argument \a timeout specifies how long the system waits for a mutex.
 While the system waits the thread that is calling this function is put into the state \b BLOCKED.
-The \a millisec timeout can have the following values:
- - when \a millisec is 0, the function returns instantly.
- - when \a millisec is set to \b osWaitForever the function will wait for an infinite time until the mutex becomes available.
- - all other values specify a time in millisecond for a timeout.
+The \a timeout timeout can have the following values:
+ - when \a timeout is 0, the function returns instantly.
+ - when \a timeout is set to \b osWaitForever the function will wait for an infinite time until the mutex becomes available.
+ - all other values specify a time in kernel ticks for a timeout.
 
 \ref osStatus_t return values:
  - \em osOK: the mutex has been obtained.
@@ -243,7 +243,7 @@ The size of the memory block passed with \ref cb_mem. Must be the size of a mute
 \details
 String with a human readable name of the mutex object.
 
-\code
+\code{.c}
 osMutexId_t mid_Thread_Mutex;               // mutex id
  
 const osMutexAttr_t Thread_Mutex_attr = {

@@ -2,7 +2,7 @@
  * @file     core_armv8mml.h
  * @brief    CMSIS ARMv8MML Core Peripheral Access Layer Header File
  * @version  V5.00
- * @date     13. September 2016
+ * @date     02. November 2016
  ******************************************************************************/
 /*
  * Copyright (c) 2009-2016 ARM Limited. All rights reserved.
@@ -194,6 +194,11 @@
   #ifndef __SAUREGION_PRESENT
     #define __SAUREGION_PRESENT       0U
     #warning "__SAUREGION_PRESENT not defined in device header file; using default!"
+  #endif
+
+  #ifndef __DSP_PRESENT
+    #define __DSP_PRESENT             0U
+    #warning "__DSP_PRESENT not defined in device header file; using default!"
   #endif
 
   #ifndef __NVIC_PRIO_BITS

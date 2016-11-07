@@ -17,7 +17,7 @@ Set the thread flags for a thread instance specified by \em thread_id. This func
 The threads waiting for the flag set will be notified to resume from BLOCKED state.
 
 <b>Code Example</b>
-\code
+\code{.c}
 void *Thread (void *arg);
  
 static void EX_Signal_1 (void)  {
@@ -30,18 +30,19 @@ static void EX_Signal_1 (void)  {
 \endcode
 */
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
-/** \fn osStatus osThreadFlagsClear (osThreadId thread_id, int32_t flags);
-Clear the event flags of an thread flags object. 
+/** \fn osStatus osThreadFlagsClear (int32_t flags)
+\details
+Clear the specified event flags set for the a calling thread. 
 
 */
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
-/** \fn int32_t osThreadFlagsGet (osThreadId thread_id);
-Return the event flags currently set in an thread flags object. 
+/** \fn int32_t osThreadFlagsGet (void)
+\details
+Return the event flags currently set for the calling thread. 
  
 */
 /*=======0=========1=========2=========3=========4=========5=========6=========7=========8=========9=========0=========1====*/
-
-/** \fn int32_t osThreadFlagsWait (int32_t flags, uint32_t options, uint32_t millisec);
+/** \fn int32_t osThreadFlagsWait (int32_t flags, uint32_t options, uint32_t timeout)
 Suspend the execution of the current \b RUNNING thread until any or all specified thread flags with the parameter \a flags are set.
 The \em options parameter specifies the wait condition. 
 
@@ -57,12 +58,12 @@ When these thread flags are already set, the function returns instantly. Otherwi
 
 
 <b>Code Example</b>
-\code
+\code{.c}
 #include "cmsis_os2.h"
 :
 void *Thread (void* arg) {
 :
-  osThreadFlagsGet (0x00000001ul, NULL, osWaitForever); //Wait forever until event 0x01 is set.
+  osThreadFlagsWait (0x00000001ul, NULL, osWaitForever); //Wait forever until event 0x01 is set.
 :
 }
 \endcode
