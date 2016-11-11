@@ -1,7 +1,7 @@
 var NAVTREE =
 [
   [ "CMSIS-SVD", "index.html", [
-    [ "System View Description", "index.html", "index" ],
+    [ "System View Description", "index.html", null ],
     [ "Revision History", "svd_revisionHistory.html", null ],
     [ "SVD File Validation and Usage", "svd_validate_file_pg.html", null ],
     [ "SVDConv.exe", "svd_SVDConv_pg.html", null ],
