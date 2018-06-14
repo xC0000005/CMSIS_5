@@ -1,0 +1,7 @@
+{
+    "description":"CMSIS 5 Platform files",
+    "name":"framework-cmsis_5",
+    "system":"all",
+    "url":"https://github.com/xC0000005/CMSIS_5",
+    "version":"5.3.0"
+}
